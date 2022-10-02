@@ -1,6 +1,6 @@
 pipeline{
 
-	agent {label 'linux'}
+	agent any
 
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
@@ -18,21 +18,21 @@ pipeline{
 		stage('Build') {
 
 			steps {
-				sh 'docker build -t thetips4you/nodeapp_test:latest .'
+				sh 'docker build -t rameshandroid99/nodeapp_test:latest .'
 			}
 		}
 
 		stage('Login') {
 
 			steps {
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+				 sh 'docker login -u rameshandroid99 -p ${dockerhubpwd}'
 			}
 		}
 
 		stage('Push') {
 
 			steps {
-				sh 'docker push thetips4you/nodeapp_test:latest'
+				sh 'docker push rameshandroid99/nodeapp_test:latest'
 			}
 		}
 	}
